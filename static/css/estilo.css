@@ -1,0 +1,725 @@
+:root {
+  --vinho-escuro: #4f1222;
+  --vinho: #7a1f35;
+  --vinho-destaque: #b3294a;
+  --vinho-claro: #f1d4da;
+
+  --fundo: #eceaeb;
+  --fundo-secao: #e1dedf;
+  --cartao: #ffffff;
+  --borda: #d5d1d3;
+  --texto: #232124;
+  --texto-suave: #5f5b60;
+
+  --grafite: #2e2c2f;
+  --grafite-visor: #1f1d20;
+  --tecla-controle: #3c393d;
+  --tecla-numero: #4c484e;
+
+  --fonte-titulo: "Space Grotesk", system-ui, sans-serif;
+  --fonte-texto: "Inter", system-ui, sans-serif;
+  --fonte-numeros: "JetBrains Mono", monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--fonte-texto);
+  background-image: radial-gradient(ellipse at 8% 12%, rgba(179, 41, 74, 0.06), transparent 28rem);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+a {
+  text-decoration: none;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- Cabeçalho ---------- */
+.cabecalho {
+  background: var(--vinho-escuro);
+}
+
+.cabecalho-conteudo {
+  min-height: 72px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 32px;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.marca-icone {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--vinho-destaque);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 700 18px var(--fonte-titulo);
+  color: #ffffff;
+}
+
+.marca-nome {
+  font: 700 18px var(--fonte-titulo);
+  color: #ffffff;
+}
+
+.menu {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 28px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.menu a {
+  color: var(--vinho-claro);
+}
+
+.menu a:hover {
+  color: #ffffff;
+}
+
+.menu-github {
+  padding: 8px 16px;
+  border: 1px solid #8e3a4d;
+  border-radius: 999px;
+}
+
+/* ---------- Área principal ---------- */
+.principal {
+  min-height: calc(100vh - 72px);
+  min-height: calc(100svh - 72px);
+  position: relative;
+  padding-top: 72px;
+  padding-bottom: 72px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 56px;
+  background: radial-gradient(ellipse at 82% 45%, rgba(179, 41, 74, 0.09), transparent 24rem);
+}
+
+.apresentacao {
+  flex: 1 1 420px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.apresentacao-etiqueta {
+  margin: 0;
+  font: 600 13px var(--fonte-texto);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vinho);
+}
+
+.apresentacao h1 {
+  margin: 0;
+  font: 700 56px/1.05 var(--fonte-titulo);
+}
+
+.apresentacao-texto {
+  margin: 0;
+  max-width: 520px;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--texto-suave);
+}
+
+.operacoes-destaque {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.operacoes-destaque span {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(122, 31, 53, 0.2);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--vinho);
+  font: 600 18px var(--fonte-numeros);
+}
+
+/* Etiquetas das tecnologias */
+.tecnologias {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tecnologias li {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: #d8d4d6;
+  font-size: 14px;
+  font-weight: 600;
+  color: #3a373b;
+}
+
+/* ---------- Histórico ---------- */
+.historico {
+  max-width: 520px;
+  padding: 20px 24px;
+  background: var(--cartao);
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+}
+
+.historico h2 {
+  margin: 0 0 12px;
+  font: 700 16px var(--fonte-titulo);
+}
+
+.historico-vazio {
+  margin: 0;
+  font-size: 15px;
+  color: var(--texto-suave);
+}
+
+/* Se a lista tiver itens, esconde a mensagem "Nenhum cálculo ainda" */
+.historico-lista:not(:empty) + .historico-vazio,
+.historico:has(.historico-lista li) .historico-vazio {
+  display: none;
+}
+
+.historico-lista {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.historico-lista li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-top: 1px solid #e4e1e3;
+  font: 500 15px var(--fonte-numeros);
+}
+
+.historico-lista span {
+  color: var(--texto-suave);
+}
+
+.historico-lista strong {
+  color: var(--vinho);
+  font-weight: 600;
+}
+
+/* ---------- Calculadora ---------- */
+.calculadora {
+  flex: 0 1 380px;
+  min-width: 0;
+  padding: 20px;
+  background: var(--grafite);
+  border-radius: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 24px 48px rgba(35, 33, 36, 0.28);
+  scroll-margin-top: 16px;
+}
+
+.calculadora-titulo {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #d8d4d6;
+}
+
+.calculadora-titulo::before {
+  width: 8px;
+  height: 8px;
+  border-radius: 3px;
+  background: var(--vinho-destaque);
+  content: "";
+}
+
+/* Visor */
+.visor {
+  padding: 16px;
+  background: var(--grafite-visor);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  font-family: var(--fonte-numeros);
+  overflow: hidden;
+}
+
+.visor-historico {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #b5b0b3;
+}
+
+.visor-expressao {
+  margin-top: 10px;
+  min-height: 27px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #d8d4d6;
+  word-break: break-all;
+  text-align: right;
+}
+
+.visor-resultado {
+  font-size: 44px;
+  font-weight: 600;
+  color: #ffffff;
+  word-break: break-all;
+  text-align: right;
+}
+
+/* Teclado: grade de 4 colunas */
+.teclado {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+/* Botão base (todos os botões) */
+.botao {
+  height: 60px;
+  border: 0;
+  border-radius: 14px;
+  font: 600 20px var(--fonte-texto);
+  cursor: pointer;
+  transition: filter 0.15s, transform 0.05s;
+}
+
+.botao:hover {
+  filter: brightness(1.15);
+}
+
+.botao:active {
+  transform: scale(0.96);
+}
+
+.botao:focus-visible {
+  outline: 3px solid var(--vinho-claro);
+  outline-offset: 2px;
+}
+
+.botao:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.calculadora-status {
+  min-height: 18px;
+  margin: 0;
+  color: #d8d4d6;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.calculadora-status[data-estado="erro"] {
+  color: #ff9aab;
+}
+
+/* Tipos de botão */
+.botao-numero {
+  background: var(--tecla-numero);
+  color: #f4f2f3;
+}
+
+.botao-controle {
+  background: var(--tecla-controle);
+  color: #f4f2f3;
+}
+
+.botao-limpar {
+  color: #f7b0bf;
+}
+
+.botao-operador {
+  background: var(--vinho);
+  color: #fbeaee;
+  font-size: 22px;
+}
+
+.botao-igual {
+  background: var(--vinho-destaque);
+  color: #ffffff;
+  font-size: 22px;
+}
+
+/* ---------- Recursos ---------- */
+.recursos {
+  min-height: 100vh;
+  min-height: 100svh;
+  background: var(--fundo-secao);
+  background-image:
+    radial-gradient(circle at 92% 18%, rgba(179, 41, 74, 0.09), transparent 20rem),
+    radial-gradient(circle at 8% 88%, rgba(79, 18, 34, 0.06), transparent 18rem);
+  padding: 72px 0;
+  display: grid;
+  align-content: center;
+}
+
+.recursos h2 {
+  margin: 0 0 32px;
+  font: 700 36px/1.1 var(--fonte-titulo);
+}
+
+.recursos-cartoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.cartao {
+  flex: 1 1 280px;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+  padding: 28px;
+  background: var(--cartao);
+  border: 1px solid var(--borda);
+  border-top: 3px solid var(--vinho-destaque);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 10px 24px rgba(35, 33, 36, 0.05);
+  transition: transform 0.18s, box-shadow 0.18s;
+}
+
+.cartao:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px rgba(35, 33, 36, 0.12);
+}
+
+.cartao-numero {
+  font: 600 14px var(--fonte-numeros);
+  color: var(--vinho);
+}
+
+.cartao h3 {
+  margin: 0;
+  font: 700 22px var(--fonte-titulo);
+}
+
+.cartao p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--texto-suave);
+}
+
+/* ---------- Contato ---------- */
+.contato {
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 72px 0;
+  background: var(--fundo);
+  background-image: radial-gradient(circle at 88% 82%, rgba(122, 31, 53, 0.08), transparent 22rem);
+  display: grid;
+  align-content: center;
+}
+
+.contato h2 {
+  margin: 0 0 12px;
+  font: 700 36px/1.1 var(--fonte-titulo);
+}
+
+.contato-apresentacao {
+  margin: 0 0 32px;
+  font-size: 16px;
+  color: var(--texto-suave);
+}
+
+.contato-cartoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.contato-cartao {
+  flex: 1 1 240px;
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--cartao);
+  border: 1px solid var(--borda);
+  border-top: 3px solid var(--vinho-destaque);
+  border-radius: 16px;
+  color: var(--texto);
+  box-shadow: 0 10px 24px rgba(35, 33, 36, 0.05);
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+
+.contato-cartao:hover {
+  border-color: var(--vinho);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(35, 33, 36, 0.12);
+}
+
+.contato-cartao:focus-visible {
+  outline: 3px solid var(--vinho-destaque);
+  outline-offset: 3px;
+}
+
+.contato-cartao strong {
+  font: 700 20px var(--fonte-titulo);
+}
+
+.contato-cartao > span:last-child {
+  color: var(--texto-suave);
+  overflow-wrap: anywhere;
+}
+
+/* ---------- Rodapé ---------- */
+.rodape {
+  background: var(--grafite);
+}
+
+.rodape-conteudo {
+  padding-top: 32px;
+  padding-bottom: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 32px;
+  font-size: 14px;
+  color: #cfcacd;
+}
+
+.rodape-conteudo p {
+  margin: 0;
+}
+
+/* ---------- Celular ---------- */
+@media (max-width: 600px) {
+  .principal {
+    padding-top: 40px;
+    padding-bottom: 40px;
+    gap: 40px;
+  }
+
+  .container {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .cabecalho-conteudo {
+    justify-content: center;
+  }
+
+  .menu {
+    justify-content: center;
+    gap: 8px 16px;
+  }
+
+  .apresentacao h1 {
+    font-size: 38px;
+  }
+
+  .calculadora {
+    flex-basis: 100%;
+  }
+
+  .visor-resultado {
+    font-size: 36px;
+  }
+
+  .recursos {
+    padding: 48px 0;
+  }
+
+  .contato {
+    padding: 48px 0;
+  }
+}
+
+@media (max-width: 380px) {
+  .apresentacao h1 {
+    font-size: 34px;
+  }
+
+  .calculadora {
+    padding: 16px;
+  }
+
+  .teclado {
+    gap: 6px;
+  }
+
+  .botao {
+    height: 50px;
+  }
+}
+
+@media (min-width: 700px) {
+  .principal {
+    flex-wrap: nowrap;
+    gap: 24px;
+    padding-top: 48px;
+    padding-bottom: 48px;
+  }
+
+  .apresentacao {
+    flex: 1 1 320px;
+    gap: 18px;
+  }
+
+  .apresentacao h1 {
+    font-size: clamp(38px, 4vw, 50px);
+  }
+
+  .calculadora {
+    flex: 0 1 360px;
+  }
+}
+
+@media (min-width: 700px) and (max-height: 700px) {
+  .principal {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    gap: 20px;
+  }
+
+  .apresentacao {
+    gap: 10px;
+  }
+
+  .apresentacao h1 {
+    font-size: clamp(32px, 3.5vw, 42px);
+  }
+
+  .apresentacao-texto {
+    font-size: 16px;
+    line-height: 1.4;
+  }
+
+  .operacoes-destaque {
+    gap: 6px;
+  }
+
+  .operacoes-destaque span {
+    width: 32px;
+    height: 32px;
+  }
+
+  .historico {
+    padding: 12px 16px;
+  }
+
+  .historico-lista li {
+    padding: 7px 0;
+  }
+
+  .calculadora {
+    padding: 14px;
+    gap: 10px;
+  }
+
+  .visor {
+    padding: 10px 12px;
+  }
+
+  .visor-expressao {
+    margin-top: 4px;
+    min-height: 20px;
+    font-size: 16px;
+  }
+
+  .visor-resultado {
+    font-size: 36px;
+  }
+
+  .teclado {
+    gap: 5px;
+  }
+
+  .botao {
+    height: 42px;
+  }
+}
+
+@media (min-width: 700px) and (max-height: 520px) {
+  .principal {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .apresentacao {
+    gap: 7px;
+  }
+
+  .calculadora {
+    padding: 10px;
+    gap: 7px;
+  }
+
+  .visor-historico {
+    display: none;
+  }
+
+  .visor {
+    padding: 6px 10px;
+  }
+
+  .visor-expressao {
+    margin-top: 0;
+    min-height: 18px;
+  }
+
+  .visor-resultado {
+    font-size: 30px;
+  }
+
+  .botao {
+    height: 36px;
+    border-radius: 10px;
+  }
+}
