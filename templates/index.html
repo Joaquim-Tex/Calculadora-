@@ -1,26 +1,194 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Calculadora</title>
-  </head>
-  <body>
-    <div class="visor" id="visor">
-      <div class="visor-expressao" id="expressao"></div>
-      <div class="visor-resultado" id="resultado">0</div>
-    </div>
-    <div class ="teclado">
-        <button class="botao 7" type = "button" data-valor="7">7</button>
-        <button class="botao 8" type = "button" data-valor="8">8</button>
-        <button class="botao 9" type = "button" data-valor="9">9</button>
-        <button class="botao 4" type = "button" data-valor="4">4</button>
-        <button class="botao 5" type = "button" data-valor="5">5</button>
-        <button class="botao 6" type = "button" data-valor="6">6</button>
-        <button class="botao 1" type = "button" data-valor="1">1</button>
-        <button class="botao 2" type = "button" data-valor="2">2</button>
-        <button class="botao 3" type = "button" data-valor="3">3</button>
-        <button class="botao 0" type = "button" data-valor="0">0</button>
-        <button class= "botao ," type = "button" data-valor=".">.</button>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora</title>
+
+  <!-- Fontes do esboço (Google Fonts) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+  <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</head>
+<body>
+
+  <!-- ===== CABEÇALHO ===== -->
+  <header class="cabecalho">
+    <div class="container cabecalho-conteudo">
+      <div class="marca">
+        <span class="marca-icone" aria-hidden="true">+</span>
+        <span class="marca-nome">Calculadora</span>
       </div>
+      <nav class="menu" aria-label="Navegação principal">
+        <a href="#calculadora">Calculadora</a>
+        <a href="#recursos">Recursos</a>
+        <a href="#historico">Histórico</a>
+        <a href="#contato">Contato</a>
+        <a href="https://github.com/Joaquim-Tex" class="menu-github" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ===== ÁREA PRINCIPAL ===== -->
+    <section class="principal container">
+
+      <!-- Apresentação + histórico -->
+      <div class="apresentacao">
+        <p class="apresentacao-etiqueta">Projeto de Ciência da Computação</p>
+        <h1>Calculadora simples, direto no navegador.</h1>
+        <p class="apresentacao-texto">
+          As quatro operações, porcentagem e histórico de cálculos. A interface é feita com
+          HTML, CSS e JavaScript, e as contas são resolvidas em Python.
+        </p>
+
+        <div class="operacoes-destaque" aria-hidden="true">
+          <span>+</span>
+          <span>−</span>
+          <span>×</span>
+          <span>÷</span>
+          <span>%</span>
+        </div>
+
+        <ul class="tecnologias">
+          <li>Python</li>
+          <li>HTML</li>
+          <li>CSS</li>
+          <li>JavaScript</li>
+          <li>Git</li>
+        </ul>
+
+        <section class="historico" id="historico" aria-labelledby="titulo-historico">
+          <h2 id="titulo-historico">Últimos cálculos</h2>
+          <p class="historico-vazio" id="historico-vazio">Nenhum cálculo ainda.</p>
+          <ul class="historico-lista" id="lista-historico">
+            <!-- Exemplos do esboço. O JavaScript vai preencher esta lista depois. -->
+            <li><span>128 ÷ 4</span><strong>32</strong></li>
+            <li><span>15 × 6</span><strong>90</strong></li>
+            <li><span>250 + 75 − 30</span><strong>295</strong></li>
+          </ul>
+        </section>
+      </div>
+
+      <!-- ===== CALCULADORA ===== -->
+      <section class="calculadora" id="calculadora" aria-label="Calculadora">
+        <p class="calculadora-titulo">Calculadora</p>
+
+        <!-- Visor: mostra a conta e o resultado -->
+        <div class="visor" id="visor">
+          <div class="visor-historico" id="visor-historico">
+            <div>128 ÷ 4 = 32</div>
+            <div>15 × 6 = 90</div>
+          </div>
+          <div class="visor-expressao" id="expressao" aria-live="polite">250 + 75 − 30</div>
+          <div class="visor-resultado" id="resultado" aria-live="assertive">295</div>
+        </div>
+
+        <!--
+          Teclado.
+          data-valor    → o que o botão escreve no visor (números e ponto)
+          data-operador → operação (+  -  *  /)
+          data-acao     → ação especial (limpar, apagar, porcentagem, trocar-sinal, igual)
+        -->
+        <div class="teclado">
+
+          <button type="button" class="botao botao-controle botao-limpar" data-acao="limpar" aria-label="Limpar tudo">C</button>
+          <button type="button" class="botao botao-controle" data-acao="apagar" aria-label="Apagar último caractere">⌫</button>
+          <button type="button" class="botao botao-controle" data-acao="porcentagem" aria-label="Porcentagem">%</button>
+          <button type="button" class="botao botao-operador" data-operador="/" aria-label="Dividir">÷</button>
+
+          <button type="button" class="botao botao-numero" data-valor="7">7</button>
+          <button type="button" class="botao botao-numero" data-valor="8">8</button>
+          <button type="button" class="botao botao-numero" data-valor="9">9</button>
+          <button type="button" class="botao botao-operador" data-operador="*" aria-label="Multiplicar">×</button>
+
+          <button type="button" class="botao botao-numero" data-valor="4">4</button>
+          <button type="button" class="botao botao-numero" data-valor="5">5</button>
+          <button type="button" class="botao botao-numero" data-valor="6">6</button>
+          <button type="button" class="botao botao-operador" data-operador="-" aria-label="Subtrair">−</button>
+
+          <button type="button" class="botao botao-numero" data-valor="1">1</button>
+          <button type="button" class="botao botao-numero" data-valor="2">2</button>
+          <button type="button" class="botao botao-numero" data-valor="3">3</button>
+          <button type="button" class="botao botao-operador" data-operador="+" aria-label="Somar">+</button>
+
+          <button type="button" class="botao botao-numero" data-acao="trocar-sinal" aria-label="Trocar sinal">±</button>
+          <button type="button" class="botao botao-numero" data-valor="0">0</button>
+          <button type="button" class="botao botao-numero" data-valor="." aria-label="Vírgula decimal">,</button>
+          <button type="button" class="botao botao-igual" data-acao="igual" aria-label="Calcular resultado">=</button>
+
+        </div>
+        <p class="calculadora-status" id="calculadora-status" role="status" aria-live="polite">Use os botões ou o teclado para calcular.</p>
+      </section>
+
+    </section>
+
+    <!-- ===== RECURSOS ===== -->
+    <section class="recursos" id="recursos">
+      <div class="container">
+        <h2>O que ela faz</h2>
+        <div class="recursos-cartoes">
+
+          <article class="cartao">
+            <span class="cartao-numero">01</span>
+            <h3>Operações básicas</h3>
+            <p>Soma, subtração, multiplicação e divisão, além de porcentagem e troca de sinal.</p>
+          </article>
+
+          <article class="cartao">
+            <span class="cartao-numero">02</span>
+            <h3>Histórico de cálculos</h3>
+            <p>Cada conta feita fica registrada na tela, para consultar ou conferir um resultado anterior.</p>
+          </article>
+
+          <article class="cartao">
+            <span class="cartao-numero">03</span>
+            <h3>Cálculo em Python</h3>
+            <p>O site envia a conta para um servidor em Python, que calcula e avisa quando há erro, como divisão por zero.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTATO ===== -->
+    <section class="contato" id="contato">
+      <div class="container">
+        <h2>Entre em contato</h2>
+        <p class="contato-apresentacao">Confira meus projetos ou fale comigo.</p>
+        <div class="contato-cartoes">
+          <a class="contato-cartao" href="https://github.com/Joaquim-Tex" target="_blank" rel="noopener noreferrer">
+            <span class="cartao-numero">GitHub</span>
+            <strong>Joaquim Teixeira</strong>
+            <span>github.com/Joaquim-Tex</span>
+          </a>
+          <a class="contato-cartao" href="https://www.linkedin.com/in/joaquim-teixeira-2a7a13400/" target="_blank" rel="noopener noreferrer">
+            <span class="cartao-numero">LinkedIn</span>
+            <strong>Joaquim Teixeira</strong>
+            <span>Ver perfil profissional</span>
+          </a>
+          <a class="contato-cartao" href="mailto:tjoaquim.sm@gmail.com">
+            <span class="cartao-numero">E-mail</span>
+            <strong>Fale comigo</strong>
+            <span>tjoaquim.sm@gmail.com</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="rodape">
+    <div class="container rodape-conteudo">
+      <p>© 2026 Joaquim · Estudante de Ciência da Computação</p>
+      <p>Python · HTML · CSS · JavaScript</p>
+    </div>
+  </footer>
+
+</body>
 </html>
