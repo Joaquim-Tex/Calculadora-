@@ -1,27 +1,40 @@
-#  Calculadora
+# Calculadora
 
-Calculadora completa com interface gráfica, desenvolvida para praticar lógica de programação e construção de interfaces web.
+Calculadora web responsiva desenvolvida com HTML, CSS, JavaScript e Python/Flask.
 
-##  O que ela faz
+## Funcionalidades
 
-- Operações básicas: soma, subtração, multiplicação e divisão
-- Funções adicionais, como porcentagem, potência e raiz quadrada
-- Histórico de cálculos
-- Interface limpa e responsiva
-- Tratamento de erros, como divisão por zero
+- Soma, subtração, multiplicação e divisão.
+- Porcentagem e troca de sinal.
+- Entrada por botões ou pelo teclado.
+- Histórico das contas realizadas enquanto a página está aberta.
+- Validação de entradas e aviso para divisão por zero.
 
-##  Tecnologias
+O histórico fica apenas na página e é limpo ao recarregá-la.
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+## Requisitos
 
-##  Status
+- Python 3.9 ou superior.
 
- Em desenvolvimento
+## Como executar
 
-##  Autor
+Abra o PowerShell na pasta do projeto e execute:
 
-**Joaquim** — Estudante de Ciência da Computação
+```powershell
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe app.py
+```
+
+Com o servidor em execução, abra no navegador:
+
+**http://127.0.0.1:5000/**
+
+Para encerrar o servidor, pressione `Ctrl+C` no terminal. Esse endereço é local: funciona na máquina onde o servidor está rodando e não representa uma versão hospedada publicamente.
+
+## Como funciona
+
+1. O Flask em `calculadora.py` exibe a página HTML e disponibiliza a rota `/api/calculadora`.
+2. O JavaScript lê os valores da calculadora e envia as operações básicas à API como JSON.
+3. O Python valida os valores, calcula o resultado e o devolve ao navegador. A interface atualiza o visor e o histórico.
+4. Porcentagem e troca de sinal são tratadas no JavaScript. O CSS define o visual responsivo da página.
