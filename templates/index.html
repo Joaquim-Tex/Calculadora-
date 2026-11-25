@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
   <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
 </head>
-<body>
+<body data-calculation-mode="{{ 'static' if config.get('STATIC_SITE') else 'api' }}">
 
   <!-- ===== CABEÇALHO ===== -->
   <header class="cabecalho">
@@ -43,7 +43,7 @@
         <h1>Calculadora simples, direto no navegador.</h1>
         <p class="apresentacao-texto">
           As quatro operações, porcentagem e histórico de cálculos. A interface é feita com
-          HTML, CSS e JavaScript, e as contas são resolvidas em Python.
+          HTML, CSS e JavaScript, com cálculos em Python no modo local e no navegador quando publicada.
         </p>
 
         <div class="operacoes-destaque" aria-hidden="true">
@@ -147,8 +147,8 @@
 
           <article class="cartao">
             <span class="cartao-numero">03</span>
-            <h3>Cálculo em Python</h3>
-            <p>O site envia a conta para um servidor em Python, que calcula e avisa quando há erro, como divisão por zero.</p>
+            <h3>Cálculo local e online</h3>
+            <p>Localmente, as operações são calculadas pelo servidor Python. No GitHub Pages, o JavaScript calcula no navegador.</p>
           </article>
 
         </div>

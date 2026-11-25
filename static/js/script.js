@@ -158,6 +158,31 @@ function addToHistory(calculation, result) {
   }
 }
 
+function calculateInBrowser(firstNumber, secondNumber, operation) {
+  let result;
+
+  if (operation === "+") {
+    result = firstNumber + secondNumber;
+  } else if (operation === "-") {
+    result = firstNumber - secondNumber;
+  } else if (operation === "*") {
+    result = firstNumber * secondNumber;
+  } else if (operation === "/") {
+    if (secondNumber === 0) {
+      throw new Error("Não é possível dividir por zero.");
+    }
+    result = firstNumber / secondNumber;
+  } else {
+    throw new Error("Operação inválida.");
+  }
+
+  if (!Number.isFinite(result)) {
+    throw new Error("O resultado não é finito.");
+  }
+
+  return result;
+}
+
 async function calculate() {
   if (
     selectedOperation === null ||
@@ -177,31 +202,38 @@ async function calculate() {
   setStatus("Calculando...");
 
   try {
-    const response = await fetch("/api/calculadora", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        num1: firstNumber,
-        num2: secondNumber,
-        operacion: operation,
-      }),
-    });
+    let result;
+    if (document.body.dataset.calculationMode === "static") {
+      result = calculateInBrowser(firstNumber, secondNumber, operation);
+    } else {
+      const response = await fetch("/api/calculadora", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          num1: firstNumber,
+          num2: secondNumber,
+          operacion: operation,
+        }),
+      });
 
-    let data;
-    try {
-      data = await response.json();
-    } catch {
-      throw new Error("O servidor retornou uma resposta inválida.");
+      let data;
+      try {
+        data = await response.json();
+      } catch {
+        throw new Error("O servidor retornou uma resposta inválida.");
+      }
+
+      if (!response.ok) {
+        throw new Error(data.error || "Não foi possível realizar o cálculo.");
+      }
+      result = data.result;
     }
 
-    if (!response.ok) {
-      throw new Error(data.error || "Não foi possível realizar o cálculo.");
-    }
-    if (typeof data.result !== "number" || !Number.isFinite(data.result)) {
+    if (typeof result !== "number" || !Number.isFinite(result)) {
       throw new Error("O servidor retornou um resultado inválido.");
     }
 
-    currentInput = formatNumber(data.result);
+    currentInput = formatNumber(result);
     expression.textContent = `${calculation} =`;
     addToHistory(calculation, currentInput);
     previousValue = null;

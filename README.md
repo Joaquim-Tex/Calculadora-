@@ -30,11 +30,17 @@ Com o servidor em execução, abra no navegador:
 
 **http://127.0.0.1:5000/**
 
-Para encerrar o servidor, pressione `Ctrl+C` no terminal. Esse endereço é local: funciona na máquina onde o servidor está rodando e não representa uma versão hospedada publicamente.
+Para encerrar o servidor, pressione `Ctrl+C` no terminal. Esse endereço é local e funciona apenas enquanto o servidor está rodando.
+
+## Site publicado
+
+A versão pública fica em **https://joaquim-tex.github.io/Calculadora-/**.
+
+O GitHub Pages hospeda arquivos estáticos e não executa Flask. Por isso, a versão publicada calcula diretamente no navegador; ao executar localmente, as operações básicas continuam usando a API Python.
 
 ## Como funciona
 
 1. O Flask em `calculadora.py` exibe a página HTML e disponibiliza a rota `/api/calculadora`.
-2. O JavaScript lê os valores da calculadora e envia as operações básicas à API como JSON.
-3. O Python valida os valores, calcula o resultado e o devolve ao navegador. A interface atualiza o visor e o histórico.
+2. No modo local, o JavaScript envia as operações básicas à API Flask como JSON; no GitHub Pages, calcula diretamente no navegador.
+3. No modo local, o Python valida os valores e devolve o resultado. Nos dois modos, a interface atualiza o visor e o histórico.
 4. Porcentagem e troca de sinal são tratadas no JavaScript. O CSS define o visual responsivo da página.
